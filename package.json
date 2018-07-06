@@ -1,0 +1,25 @@
+{
+  "name": "node-ci-test-setup",
+  "version": "1.0.0",
+  "description": "Travis CI node test setup",
+  "main": "build/index.js",
+  "repository": "git@github.com:allaboutapps/node-ci-test-setup.git",
+  "author": "all about apps",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rimraf build",
+    "build": "yarn clean && tsc && yarn lint",
+    "lint": "tslint --project tsconfig.json -c tslint.json",
+    "start": "node build/index.js",
+    "test": "mocha --opts ./.mocha \"./build/**/*.test.js\""
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.4",
+    "@types/mocha": "^5.2.4",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "rimraf": "^2.6.2",
+    "tslint": "5.10.0",
+    "typescript": "2.9.2"
+  }
+}
