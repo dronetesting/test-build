@@ -10,14 +10,19 @@ pipeline:
       - |
         psql -U postgres -d test -h database \
           -c "SELECT * FROM pg_catalog.pg_tables;"
+
   build docker image:
-    image: plugins/docker
-    repo: slotlist-info/drone-test/test-build
-    tags: latest
+    image: docker:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    commands:
+      - docker build -t slotlist-info/drone-test/test-build:latest .
+
   test docker image:
     image: slotlist-info/drone-test/test-build:latest
     commands:
       - yarn test
+
   build:
     image: node
     commands:
@@ -25,6 +30,7 @@ pipeline:
       - yarn build
       - yarn lint
       - yarn test
+
   gcr:
     image: plugins/gcr
     repo: slotlist-info/drone-test/test-build
