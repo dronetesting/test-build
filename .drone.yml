@@ -1,4 +1,15 @@
 pipeline:
+  ping:
+    image: postgres
+    commands:
+      # wait for postgres service to become available
+      - |
+        until psql -U postgres -d test -h database \
+         -c "SELECT 1;" >/dev/null 2>&1; do sleep 1; done
+      # query the database
+      - |
+        psql -U postgres -d test -h database \
+          -c "SELECT * FROM pg_catalog.pg_tables;"
   build:
     image: node
     commands:
@@ -6,3 +17,10 @@ pipeline:
       - yarn build
       - yarn lint
       - yarn test
+
+services:
+  database:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=test
