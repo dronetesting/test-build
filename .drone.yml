@@ -21,6 +21,8 @@ pipeline:
   test docker image:
     image: slotlist-info/drone-test/test-build:latest
     commands:
+      - pwd
+      - ls -ahl
       - yarn test
 
   build:
