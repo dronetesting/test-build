@@ -23,6 +23,8 @@ pipeline:
     commands:
       - pwd
       - ls -ahl
+      - ls -ahl /app
+      - cd /app
       - yarn test
 
   build:
