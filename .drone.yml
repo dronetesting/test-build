@@ -19,8 +19,9 @@ pipeline:
       - yarn test
   gcr:
     image: plugins/gcr
-    repo: drone-test/test-build
+    repo: slotlist-info/drone-test/test-build
     tags: latest
+    registry: eu.gcr.io
     secrets: [google_credentials]
 
 services:
