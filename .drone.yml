@@ -17,6 +17,11 @@ pipeline:
       - yarn build
       - yarn lint
       - yarn test
+  gcr:
+    image: plugins/gcr
+    repo: drone-test/test-build
+    tags: latest
+    secrets: [google_credentials]
 
 services:
   database:
